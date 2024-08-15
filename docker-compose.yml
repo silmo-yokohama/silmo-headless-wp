@@ -13,14 +13,14 @@ services:
       MYSQL_PASSWORD: db-pass
 
   wordpress:
-    container_name: my-wp-container
+    container_name: silmo-wp
     depends_on:
       - db
     image: wordpress:latest
     volumes:
       - ./html:/var/www/html #wordpressファイル群格納用
       - ./wp-content:/var/www/html/wp-content #テーマ、プラグイン開発用
-      - ./**my-theme**:/var/www/html/wp-content/themes/**my-theme** #オリジナルテーマ開発用空テーマ**my-theme**部分は適宜変更。
+      - ./silmo:/var/www/html/wp-content/themes/silmo 
     ports:
       - "8000:80"
     restart: always
@@ -38,7 +38,7 @@ services:
       PMA_HOST: db
     restart: always
     ports:
-      - "8080:80"
+      - "8888:80"
   # sqlファイルインポート時はファイルサイズの上限を変更するためコメントアウトを外す
   # volumes:
   #    - ./phpmyadmin-misc.ini:/usr/local/etc/php/conf.d/phpmyadmin-misc.ini
